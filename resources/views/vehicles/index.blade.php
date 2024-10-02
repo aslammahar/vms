@@ -26,11 +26,11 @@
                 <td>{{ $vehicle->owner->name ?? 'N/A' }}</td>
                 <td>
                     <a href="{{ route('vehicles.edit', $vehicle->id) }}" class="btn btn-warning">Edit</a>
-                    {{-- <form action="{{ route('vehicles.destroy', $vehicle->id) }}" method="POST" style="display:inline;">
+                    <form action="{{ route('vehicles.destroy', $vehicle->id) }}" method="POST" style="display:inline;">
                         @csrf
-                        @method('DELETE')
+                        @method('POST')
                         <button type="submit" class="btn btn-danger">Delete</button>
-                    </form> --}}
+                    </form>
                 </td>
             </tr>
             @endforeach

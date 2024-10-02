@@ -15,6 +15,7 @@
     @endif
 
     <form action="{{ route('vehicles.update', $vehicle->id) }}" method="POST">
+        {{-- <form action="{{ route('salaries.update', $salary->id) }}" method="POST"> --}}
         @csrf
         @method('PUT')
 

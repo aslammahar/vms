@@ -1,24 +1,18 @@
 <?php
 namespace App\Http\Controllers;
 
-use App\Models\Vehicle;
+use App\Vehicle; // Correct model namespace
 use App\User;
-use App\Vehicle as AppVehicle;
 use Illuminate\Http\Request;
 
 class VehicleController extends Controller
 {
     public function index()
     {
-
-        $vehicles = AppVehicle::with('owner')->get(); // Fetch vehicles with owner relationship
+        $vehicles = Vehicle::with('owner')->get(); // Fetch vehicles with owner relationship
         return view('vehicles.index', compact('vehicles'));
     }
 
-    // public function create()
-    // {
-    //     return view('vehicles.create'); // Pass any necessary data
-    // }
     public function create()
     {
         $owners = User::all(); // Fetch all owners (users)
@@ -35,34 +29,49 @@ class VehicleController extends Controller
             'owner_id' => 'required|exists:users,id',
         ]);
 
-        AppVehicle::create($request->all());
+        Vehicle::create($request->all());
 
         return redirect()->route('vehicles.list')->with('success', 'Vehicle added successfully.');
     }
 
-    public function edit(Vehicle $vehicle)
+    public function edit($id)
     {
-        return view('vehicles.edit', compact('vehicle'));
+        // Fetch the vehicle to be edited
+        $vehicle = Vehicle::findOrFail($id);
+
+        // Fetch all owners (users) to populate the owner dropdown
+        $owners = User::all();
+
+        // Pass the vehicle and owners to the edit view
+        return view('vehicles.edit', compact('vehicle', 'owners'));
     }
 
-    public function update(Request $request, Vehicle $vehicle)
+
+    public function update(Request $request, $id) // Accept the ID
+{
+    // Find the vehicle by ID
+    $vehicle = Vehicle::findOrFail($id);
+
+    // Validate the request
+    $request->validate([
+        'make' => 'required|string|max:255',
+        'model' => 'required|string|max:255',
+        'year' => 'required|integer|between:1886,' . date('Y'),
+        'registration_number' => 'required|string|unique:vehicles,registration_number,' . $vehicle->id, // Ensure unique registration number, but allow the current one
+        'owner_id' => 'required|exists:users,id',
+    ]);
+
+    // Update the vehicle with new data
+    $vehicle->update($request->all());
+
+    // Redirect back with a success message
+    return redirect()->route('vehicles.list')->with('success', 'Vehicle updated successfully.');
+}
+
+    public function destroy($id)
     {
-        $request->validate([
-            'make' => 'required|string|max:255',
-            'model' => 'required|string|max:255',
-            'year' => 'required|integer|between:1886,' . date('Y'),
-            'registration_number' => 'required|string|unique:vehicles,registration_number,' . $vehicle->id,
-            'owner_id' => 'required|exists:users,id',
-        ]);
-
-        $vehicle->update($request->all());
-
-        return redirect()->route('vehicles.list')->with('success', 'Vehicle updated successfully.');
+        $maintenance = Vehicle::findOrFail($id);
+        $maintenance->delete();
+        return redirect()->route('vehicles.list')->with('success', 'Maintenance record deleted successfully.');
     }
-
-    // public function destroy(Vehicle $vehicle)
-    // {
-    //     $vehicle->delete();
-    //     return redirect()->route('vehicles.list')->with('success', 'Vehicle deleted successfully.');
-    // }
 }

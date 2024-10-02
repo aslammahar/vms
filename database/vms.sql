@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Oct 01, 2024 at 12:30 PM
+-- Generation Time: Oct 02, 2024 at 01:06 PM
 -- Server version: 8.3.0
 -- PHP Version: 7.2.34
 
@@ -35,19 +35,19 @@ CREATE TABLE IF NOT EXISTS `drivers` (
   `vehicle_id` bigint UNSIGNED DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
+  `amount` decimal(8,2) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `drivers_license_number_unique` (`license_number`),
   KEY `drivers_vehicle_id_foreign` (`vehicle_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `drivers`
 --
 
-INSERT INTO `drivers` (`id`, `name`, `license_number`, `vehicle_id`, `created_at`, `updated_at`) VALUES
-(1, 'Yousuf', '0001245', NULL, '2024-10-01 05:40:56', '2024-10-01 05:40:56'),
-(2, 'Yousuf', '0222454', NULL, '2024-10-01 05:42:09', '2024-10-01 05:42:09'),
-(3, 'Saifullah', '258', 3, '2024-10-01 07:26:24', '2024-10-01 07:26:24');
+INSERT INTO `drivers` (`id`, `name`, `license_number`, `vehicle_id`, `created_at`, `updated_at`, `amount`) VALUES
+(7, 'Yousuf', '0786', 4, '2024-10-02 04:57:15', '2024-10-02 05:05:12', 10000.00),
+(8, 'aslam', '00786', 5, '2024-10-02 05:13:47', '2024-10-02 05:14:24', 10000.00);
 
 -- --------------------------------------------------------
 
@@ -83,7 +83,15 @@ CREATE TABLE IF NOT EXISTS `maintenance` (
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `maintenance_vehicle_id_foreign` (`vehicle_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `maintenance`
+--
+
+INSERT INTO `maintenance` (`id`, `vehicle_id`, `date`, `description`, `cost`, `created_at`, `updated_at`) VALUES
+(4, 5, '2024-10-01', 'Service And Oil Change', 8000.00, '2024-10-02 05:15:35', '2024-10-02 05:15:35'),
+(3, 4, '2024-09-30', 'service', 10000.00, '2024-10-02 05:03:41', '2024-10-02 05:04:34');
 
 -- --------------------------------------------------------
 
@@ -97,7 +105,7 @@ CREATE TABLE IF NOT EXISTS `migrations` (
   `migration` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `batch` int NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `migrations`
@@ -109,7 +117,9 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (3, '2019_08_19_000000_create_failed_jobs_table', 1),
 (4, '2024_10_01_092235_create_vehicles_table', 2),
 (5, '2024_10_01_092315_create_drivers_table', 2),
-(6, '2024_10_01_092353_create_maintenances_table', 2);
+(6, '2024_10_01_092353_create_maintenances_table', 2),
+(7, '2024_10_02_074026_create_salaries_table', 3),
+(8, '2024_10_02_080335_add_salary_to_drivers_table', 4);
 
 -- --------------------------------------------------------
 
@@ -124,6 +134,32 @@ CREATE TABLE IF NOT EXISTS `password_resets` (
   `created_at` timestamp NULL DEFAULT NULL,
   KEY `password_resets_email_index` (`email`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `salaries`
+--
+
+DROP TABLE IF EXISTS `salaries`;
+CREATE TABLE IF NOT EXISTS `salaries` (
+  `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT,
+  `driver_id` bigint UNSIGNED NOT NULL,
+  `amount` decimal(8,2) NOT NULL,
+  `payment_date` date NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `salaries_driver_id_foreign` (`driver_id`)
+) ENGINE=MyISAM AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `salaries`
+--
+
+INSERT INTO `salaries` (`id`, `driver_id`, `amount`, `payment_date`, `created_at`, `updated_at`) VALUES
+(12, 7, 10000.00, '2024-10-01', '2024-10-02 05:01:20', '2024-10-02 05:05:12'),
+(13, 8, 10000.00, '2024-10-01', '2024-10-02 05:14:24', '2024-10-02 05:14:24');
 
 -- --------------------------------------------------------
 
@@ -171,16 +207,15 @@ CREATE TABLE IF NOT EXISTS `vehicles` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `vehicles_registration_number_unique` (`registration_number`),
   KEY `vehicles_owner_id_foreign` (`owner_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `vehicles`
 --
 
 INSERT INTO `vehicles` (`id`, `make`, `model`, `year`, `registration_number`, `owner_id`, `created_at`, `updated_at`) VALUES
-(1, 'toyata', '2024', '2024', '797', NULL, '2024-10-01 07:19:39', '2024-10-01 07:19:39'),
-(2, 'toyata', '2024', '2024', '478', NULL, '2024-10-01 07:20:35', '2024-10-01 07:20:35'),
-(3, 'toyata', '2024', '2019', '457', 1, '2024-10-01 07:25:11', '2024-10-01 07:25:11');
+(5, 'Rocco', '2018', '2020', '00145', 1, '2024-10-02 05:13:23', '2024-10-02 05:13:23'),
+(4, 'Revo', '2020', '2021', '7979', 1, '2024-10-02 04:56:22', '2024-10-02 05:12:38');
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

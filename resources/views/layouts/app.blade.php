@@ -87,6 +87,23 @@
             background-color: #007bff;
             color: white;
         }
+
+        footer {
+            position: fixed;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            background-color: #343a40;
+            color: white;
+            text-align: center;
+            padding: 20px 0;
+            z-index: 1000;
+            height: 50px;
+            border-top: 1px solid #17a2b8;
+        }
+
+
+
     </style>
 </head>
 <body>
@@ -130,7 +147,7 @@
                 <div class="navbar">
             <h1>{{-- Vehicle Management System --}}</h1>
                     <div class="user-icon">
-                        <i class="fas fa-user-circle fa-2x" style="color: #007bff;"></i>
+                        <i class="fas fa-user-circle fa-2x" style="color: #17a2b8;"></i>
                         <div class="dropdown">
                             <a href="{{ route('profile.show') }}">My Profile</a>
                             <a href="{{ route('logout') }}"
@@ -145,6 +162,11 @@
 
                 @yield('content')
             </main>
+            <footer class="bg-white text-dark text-center">
+                <p>&copy; {{ date('Y') }} Aslam Baig . All Rights Reserved.</p>
+            </footer>
+
+
         </div>
     </div>
 

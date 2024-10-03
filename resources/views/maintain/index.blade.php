@@ -64,6 +64,7 @@
                         <th>Date</th>
                         <th>Description</th>
                         <th>Cost</th>
+                        <th>Status</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
@@ -74,6 +75,7 @@
                             <td>{{ $maintenance->date }}</td>
                             <td>{{ $maintenance->description }}</td>
                             <td>{{ $maintenance->cost }}</td>
+                            <td>{{ $maintenance->status }}</td>
                             <td>
                                 <a href="{{ route('maintain.edit', $maintenance->id) }}" class="btn btn-warning">Edit</a>
                                 <form action="{{ route('maintain.destroy', $maintenance->id) }}" method="POST" style="display:inline;">

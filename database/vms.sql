@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Oct 02, 2024 at 01:06 PM
+-- Generation Time: Oct 03, 2024 at 10:03 AM
 -- Server version: 8.3.0
 -- PHP Version: 7.2.34
 
@@ -39,15 +39,16 @@ CREATE TABLE IF NOT EXISTS `drivers` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `drivers_license_number_unique` (`license_number`),
   KEY `drivers_vehicle_id_foreign` (`vehicle_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `drivers`
 --
 
 INSERT INTO `drivers` (`id`, `name`, `license_number`, `vehicle_id`, `created_at`, `updated_at`, `amount`) VALUES
-(7, 'Yousuf', '0786', 4, '2024-10-02 04:57:15', '2024-10-02 05:05:12', 10000.00),
-(8, 'aslam', '00786', 5, '2024-10-02 05:13:47', '2024-10-02 05:14:24', 10000.00);
+(9, 'admin', '4580', 5, '2024-10-03 02:45:25', '2024-10-03 02:45:25', NULL),
+(7, 'Yousuf', '0786', 5, '2024-10-02 04:57:15', '2024-10-02 08:58:16', 10000.00),
+(8, 'aslam', '00786', 4, '2024-10-02 05:13:47', '2024-10-03 03:51:05', 50000.00);
 
 -- --------------------------------------------------------
 
@@ -79,19 +80,19 @@ CREATE TABLE IF NOT EXISTS `maintenance` (
   `date` date NOT NULL,
   `description` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `cost` decimal(8,2) NOT NULL,
+  `status` enum('completed','pending') CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT 'completed',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `maintenance_vehicle_id_foreign` (`vehicle_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `maintenance`
 --
 
-INSERT INTO `maintenance` (`id`, `vehicle_id`, `date`, `description`, `cost`, `created_at`, `updated_at`) VALUES
-(4, 5, '2024-10-01', 'Service And Oil Change', 8000.00, '2024-10-02 05:15:35', '2024-10-02 05:15:35'),
-(3, 4, '2024-09-30', 'service', 10000.00, '2024-10-02 05:03:41', '2024-10-02 05:04:34');
+INSERT INTO `maintenance` (`id`, `vehicle_id`, `date`, `description`, `cost`, `status`, `created_at`, `updated_at`) VALUES
+(7, 5, '2024-10-01', 'Oil change And Service', 8000.00, 'completed', '2024-10-03 03:18:49', '2024-10-03 03:18:49');
 
 -- --------------------------------------------------------
 
@@ -147,19 +148,19 @@ CREATE TABLE IF NOT EXISTS `salaries` (
   `driver_id` bigint UNSIGNED NOT NULL,
   `amount` decimal(8,2) NOT NULL,
   `payment_date` date NOT NULL,
+  `status` enum('unpaid','paid') COLLATE utf8mb4_unicode_ci DEFAULT 'paid',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `salaries_driver_id_foreign` (`driver_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `salaries`
 --
 
-INSERT INTO `salaries` (`id`, `driver_id`, `amount`, `payment_date`, `created_at`, `updated_at`) VALUES
-(12, 7, 10000.00, '2024-10-01', '2024-10-02 05:01:20', '2024-10-02 05:05:12'),
-(13, 8, 10000.00, '2024-10-01', '2024-10-02 05:14:24', '2024-10-02 05:14:24');
+INSERT INTO `salaries` (`id`, `driver_id`, `amount`, `payment_date`, `status`, `created_at`, `updated_at`) VALUES
+(14, 8, 50000.00, '2024-10-02', 'paid', '2024-10-03 03:50:43', '2024-10-03 03:51:05');
 
 -- --------------------------------------------------------
 
@@ -214,8 +215,8 @@ CREATE TABLE IF NOT EXISTS `vehicles` (
 --
 
 INSERT INTO `vehicles` (`id`, `make`, `model`, `year`, `registration_number`, `owner_id`, `created_at`, `updated_at`) VALUES
-(5, 'Rocco', '2018', '2020', '00145', 1, '2024-10-02 05:13:23', '2024-10-02 05:13:23'),
-(4, 'Revo', '2020', '2021', '7979', 1, '2024-10-02 04:56:22', '2024-10-02 05:12:38');
+(5, 'Rocco', '2018', '2021', '00145', 1, '2024-10-02 05:13:23', '2024-10-03 04:48:40'),
+(4, 'Revo', '2020', '2022', '7979', 1, '2024-10-02 04:56:22', '2024-10-03 04:48:47');
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

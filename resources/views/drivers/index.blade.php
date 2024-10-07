@@ -75,10 +75,7 @@
                                 @if($driver->amount)
                                     {{ $driver->amount }}
                                 @else
-                                    No salary assigned
-                                @endif
-                            </td>
-                            <td>
+                                    No salary assigned <td>
                                 <a href="{{ route('drivers.edit', $driver->id) }}" class="btn btn-warning">Edit</a>
                                 <form action="{{ route('drivers.destroy', $driver->id) }}" method="POST" style="display:inline;">
                                     @csrf
@@ -86,6 +83,9 @@
                                     <button type="submit" class="btn btn-danger">Delete</button>
                                 </form>
                             </td>
+                                @endif
+                            </td>
+
                         </tr>
                     @endforeach
                 </tbody>

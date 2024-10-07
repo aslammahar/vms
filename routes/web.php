@@ -18,12 +18,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 Route::get('/', function () {
-    return view('welcome');
+    return redirect()->route('login'); // Redirects to the login page
 });
 Route::get('/admin', [AdminDashboardController::class, 'index'])->middleware('auth')->name('admin.index');
-// Route::resource('vehicles', VehicleController::class);
-// Route::resource('drivers', DriverController::class);
+
 // Drivers
 Route::group(['prefix' => 'drivers', 'middleware' => ['auth']], function () {
     Route::get('list', [App\Http\Controllers\DriverController::class, 'index'])->name('drivers.list');
@@ -49,7 +51,6 @@ Route::group(['prefix' => 'vehicles', 'middleware' => ['auth']], function () {
     Route::post('store', [App\Http\Controllers\VehicleController::class, 'store'])->name('vehicles.store');
     Route::get('edit/{id}', [App\Http\Controllers\VehicleController::class, 'edit'])->name('vehicles.edit');
     Route::put('update/{id}', [App\Http\Controllers\VehicleController::class, 'update'])->name('vehicles.update');
-
     Route::post('destroy/{id}', [App\Http\Controllers\VehicleController::class, 'destroy'])->name('vehicles.destroy');
 });
 
@@ -58,7 +59,6 @@ Route::group(['prefix' => 'maintain', 'middleware' => ['auth']], function () {
     Route::get('list', [App\Http\Controllers\MaintenanceController::class, 'index'])->name('maintain.list');
     Route::get('create', [App\Http\Controllers\MaintenanceController::class, 'create'])->name('maintain.create');
     Route::post('store', [App\Http\Controllers\MaintenanceController::class, 'store'])->name('maintain.store');
-    // Route::get('edit', [App\Http\Controllers\MaintenanceController::class, 'edit'])->name('maintain.edit');
     Route::get('edit/{id}', [App\Http\Controllers\MaintenanceController::class, 'edit'])->name('maintain.edit');
     Route::put('update/{id}', [App\Http\Controllers\MaintenanceController::class, 'update'])->name('maintain.update');
     Route::post('destroy/{id}', [App\Http\Controllers\MaintenanceController::class, 'destroy'])->name('maintain.destroy');
@@ -69,15 +69,21 @@ Route::group(['prefix' => 'salaries', 'middleware' => ['auth']], function () {
     Route::get('list', [App\Http\Controllers\SalaryController::class, 'index'])->name('salaries.list');
     Route::get('create', [App\Http\Controllers\SalaryController::class, 'create'])->name('salaries.create');
     Route::post('store', [App\Http\Controllers\SalaryController::class, 'store'])->name('salaries.store');
-    // Route::get('edit', [App\Http\Controllers\MaintenanceController::class, 'edit'])->name('maintain.edit');
     Route::get('edit/{id}', [App\Http\Controllers\SalaryController::class, 'edit'])->name('salaries.edit');
     Route::put('update/{id}', [App\Http\Controllers\SalaryController::class, 'update'])->name('salaries.update');
     Route::post('destroy/{id}', [App\Http\Controllers\SalaryController::class, 'destroy'])->name('salaries.destroy');
 
 
 });
-// Route::resource('maintenance', MaintenanceController::class);
-Auth::routes();
-// Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::group(['prefix' => 'incident', 'middleware' => ['auth']], function () {
+    Route::get('list', [App\Http\Controllers\IncidentController::class, 'index'])->name('incident.list');
+    Route::get('create', [App\Http\Controllers\IncidentController::class, 'create'])->name('incident.create');
+    Route::post('store', [App\Http\Controllers\IncidentController::class, 'store'])->name('incident.store');
+    Route::get('edit/{id}', [App\Http\Controllers\IncidentController::class, 'edit'])->name('incident.edit');
+    Route::put('update/{id}', [App\Http\Controllers\IncidentController::class, 'update'])->name('incident.update');
+    Route::post('destroy/{id}', [App\Http\Controllers\IncidentController::class, 'destroy'])->name('incident.destroy');
+});
+Auth::routes();
+
+// Route::get('/home', 'HomeController@index')->name('home');

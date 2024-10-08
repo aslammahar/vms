@@ -70,7 +70,7 @@
             display: none;
             position: absolute;
             right: 0;
-            background-color: white;
+            background-color: rgba(255, 255, 255, 0.178);
             border: 1px solid #eaeaea;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
             z-index: 1000;
@@ -144,9 +144,28 @@
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('incident.list') }}">
-                                <i class="fas fa-exclamation-triangle"></i> Incident Reports
+                                <i class="fas fa-exclamation-triangle fa-fw"></i> Incident Reports
                             </a>
                         </li>
+
+                        <li class="nav-item">
+                            @if(isset($incident))
+                                <a class="nav-link" href="{{ route('incident_followups.list', ['incidentId' => $incident->id]) }}">
+                                    <i class="fas fa-ban fa-fw"></i>  Incident Follow-ups
+                                </a>
+                            @else
+                                <a class="nav-link" href="#">
+                                    <i class="fas fa-ban fa-fw"></i>  Incident Follow-ups
+                                </a>
+                            @endif
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('trip.list') }}">
+                                <i class="fas fa-route fa-fw"></i> Trips
+                            </a>
+                        </li>
+
                     </ul>
                 </div>
             </nav>
@@ -156,7 +175,7 @@
             <main role="main" class="col-md-12 ml-sm-auto col-lg-10 px-4">
                 <div class="navbar">
                     <h1>{{-- Vehicle Management System --}}</h1>
-                    @if (!request()->is('login')) <!-- Check if the current route is NOT the login route -->
+                    @if (!request()->is('login'))
                     <div class="user-icon">
                         <i class="fas fa-user-circle fa-2x" style="color: #17a2b8;"></i>
                         <div class="dropdown">
@@ -176,7 +195,7 @@
                 @yield('content')
             </main>
 
-            @if (!request()->is('login')) <!-- Check if the current route is NOT the login route -->
+            @if (!request()->is('login'))
             <footer class="bg-white text-dark text-center">
                 <p>&copy; {{ date('Y') }} VMS . All Rights Reserved.</p>
             </footer>

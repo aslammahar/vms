@@ -21,10 +21,15 @@ class Driver extends Model
         return $this->belongsTo(Vehicle::class);
     }
 
-    
+
     public function salaries()
 {
     return $this->hasMany(Salary::class);
 }
+
+    public function trips()
+    {
+        return $this->hasMany(Trip::class);
+    }
 
 }

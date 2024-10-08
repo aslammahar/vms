@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AdminDashboardController;
 use App\Http\Controllers\DriverController;
+use App\Http\Controllers\IncidentFollowupController;
 use App\Http\Controllers\MaintenanceController;
 use App\Http\Controllers\VehicleController;
 use Illuminate\Support\Facades\Auth;
@@ -75,7 +76,7 @@ Route::group(['prefix' => 'salaries', 'middleware' => ['auth']], function () {
 
 
 });
-
+// Incident
 Route::group(['prefix' => 'incident', 'middleware' => ['auth']], function () {
     Route::get('list', [App\Http\Controllers\IncidentController::class, 'index'])->name('incident.list');
     Route::get('create', [App\Http\Controllers\IncidentController::class, 'create'])->name('incident.create');
@@ -83,6 +84,37 @@ Route::group(['prefix' => 'incident', 'middleware' => ['auth']], function () {
     Route::get('edit/{id}', [App\Http\Controllers\IncidentController::class, 'edit'])->name('incident.edit');
     Route::put('update/{id}', [App\Http\Controllers\IncidentController::class, 'update'])->name('incident.update');
     Route::post('destroy/{id}', [App\Http\Controllers\IncidentController::class, 'destroy'])->name('incident.destroy');
+});
+// Incident_followups
+// Route::group(['prefix' => 'incident_followups', 'middleware' => ['auth']], function () {
+//     Route::get('list', [App\Http\Controllers\IncidentFollowupController::class, 'index'])->name('incident_followups.list');
+//     Route::get('create', [App\Http\Controllers\IncidentFollowupController::class, 'create'])->name('incident_followups.create');
+//     Route::post('store', [App\Http\Controllers\IncidentFollowupController::class, 'store'])->name('incident_followups.store');
+//     Route::get('edit/{id}', [App\Http\Controllers\IncidentFollowupController::class, 'edit'])->name('incident_followups.edit');
+//     Route::put('update/{id}', [App\Http\Controllers\IncidentFollowupController::class, 'update'])->name('incident_followups.update');
+//     Route::post('destroy/{id}', [App\Http\Controllers\IncidentFollowupController::class, 'destroy'])->name('incident_followups.destroy');
+// });
+
+Route::group(['prefix' => 'incident_followups', 'middleware' => ['auth']], function () {
+    Route::get('list/{incidentId}', [App\Http\Controllers\IncidentFollowupController::class, 'index'])->name('incident_followups.list');
+    Route::get('create/{incidentId}', [App\Http\Controllers\IncidentFollowupController::class, 'create'])->name('incident_followups.create');
+    Route::post('store/{incidentId}', [App\Http\Controllers\IncidentFollowupController::class, 'store'])->name('incident_followups.store');
+    Route::get('edit/{incidentId}/{followupId}', [IncidentFollowupController::class, 'edit'])->name('incident_followups.edit');
+    Route::put('update/{incidentId}/{followupId}', [IncidentFollowupController::class, 'update'])->name('incident_followups.update');
+    Route::post('destroy/{incidentId}/{followupId}', [IncidentFollowupController::class, 'destroy'])->name('incident_followups.destroy');
+
+});
+
+// Trips
+Route::group(['prefix' => 'trip', 'middleware' => ['auth']], function () {
+    Route::get('list', [App\Http\Controllers\TripController::class, 'index'])->name('trip.list');
+    Route::get('create', [App\Http\Controllers\TripController::class, 'create'])->name('trip.create');
+    Route::post('store', [App\Http\Controllers\TripController::class, 'store'])->name('trip.store');
+    Route::get('edit/{id}', [App\Http\Controllers\TripController::class, 'edit'])->name('trip.edit');
+    Route::put('update/{id}', [App\Http\Controllers\TripController::class, 'update'])->name('trip.update');
+    Route::get('history', [App\Http\Controllers\TripController::class, 'history'])->name('trip.history');
+    Route::get('ongoing', [App\Http\Controllers\TripController::class, 'ongoing'])->name('trip.ongoing');
+    Route::post('destroy/{id}', [App\Http\Controllers\TripController::class, 'destroy'])->name('trip.destroy');
 });
 Auth::routes();
 

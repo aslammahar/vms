@@ -4,8 +4,12 @@
         <!-- Table Card -->
         <div class="col-md-12">
             <div class="card">
-                <div class="card-header">
+                <div class="card-header d-flex justify-content-between align-items-center">
+
                     <h2>Driver Salaries</h2>
+                    <a href="{{ route('salaries.create') }}" class="btn btn-primary float-end">Add New Salary</a>
+
+
                 </div>
                 <div class="card-body">
                     <table class="table table-bordered">
@@ -57,7 +61,7 @@
                         </tbody>
 
                     </table>
-                    <a href="{{ route('salaries.create') }}" class="btn btn-primary">Add New Salary</a>
+                    {{-- <a href="{{ route('salaries.create') }}" class="btn btn-primary">Add New Salary</a> --}}
                 </div>
             </div>
         </div>

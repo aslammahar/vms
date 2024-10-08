@@ -12,25 +12,25 @@
         height: 100%;
     }
     .card-container {
-        display: flex; /* Use flexbox to align items */
-        justify-content: center; /* Center the card horizontally */
-        align-items: center; /* Center the card vertically */
+        display: flex; 
+        justify-content: center;
+        align-items: center;
     }
     .card {
         border-radius: 10px;
         box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-        width: 95%; /* Set card width equal to image width */
-        display: flex; /* Use flexbox */
-        flex-direction: column; /* Stack the card elements vertically */
+        width: 95%;
+        display: flex;
+        flex-direction: column;
     }
     .card-img {
         width: 95%;
-        border-top-left-radius: 10px; /* Round corners */
-        border-bottom-left-radius: 10px; /* Round corners */
-        object-fit: cover; /* Ensure image covers the area */
+        border-top-left-radius: 10px;
+        border-bottom-left-radius: 10px;
+        object-fit: cover;
     }
     .card-body {
-        width: 100%; /* Full width for the form */
+        width: 100%;
         padding: 2rem;
     }
     .btn-primary {
@@ -55,12 +55,12 @@
     .card-header {
         background-color: #00d9ff;
         color: white;
-        text-align: center; /* Center the header text */
+        text-align: center; 
         border-top-right-radius: 10px;
         border-top-left-radius: 10px;
-        padding: 1rem; /* Add padding */
-        margin: 0; /* Remove margin */
-        width: 100%; /* Full width */
+        padding: 1rem; 
+        margin: 0;
+        width: 100%;
     }
 </style>
 

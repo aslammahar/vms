@@ -2,14 +2,18 @@
 
 @section('content')
 <div class="container">
-    <h1>Vehicles</h1>
-    <a href="{{ route('vehicles.create') }}" class="btn btn-primary mb-3">Add Vehicle</a>
+    <div class="card-header d-flex justify-content-between align-items-center">
+        <h2>Vehicles</h2>
+        <a href="{{ route('vehicles.create') }}" class="btn btn-primary float-end">Add Vehicle</a>
+    </div>
+
+    {{-- <a href="{{ route('vehicles.create') }}" class="btn btn-primary mb-3">Add Vehicle</a> --}}
 
     <!-- Body Card -->
     <div class="card">
         <div class="card-body">
             <h5 class="card-title">Vehicle List</h5>
-            <table class="table mt-3">
+            <table class="table table-bordered">
                 <thead>
                     <tr>
                         <th>Make</th>

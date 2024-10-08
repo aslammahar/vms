@@ -3,6 +3,8 @@
 namespace App;
 
 use App\Driver;
+use App\IncidentFollowup as AppIncidentFollowup;
+use App\Models\IncidentFollowup;
 use App\Vehicle;
 use Illuminate\Database\Eloquent\Model;
 
@@ -24,5 +26,10 @@ class Incident extends Model
     public function driver()
     {
         return $this->belongsTo(Driver::class);
+    }
+
+    public function followups()
+    {
+        return $this->hasMany(AppIncidentFollowup::class);
     }
 }

@@ -2,11 +2,14 @@
 
 @section('content')
     <div class="body-card">
-        <h1>Incident Reports</h1>
+        <div class="card-header d-flex justify-content-between align-items-center">
+            <h2>Incident Reports</h2>
+            <a href="{{ route('incident.create') }}" class="btn btn-primary mb-3 float-end">Add New Incident</a>
+        </div>
 
-        <a href="{{ route('incident.create') }}" class="btn btn-primary mb-3">Log New Incident</a>
+        {{-- <a href="{{ route('incident.create') }}" class="btn btn-primary mb-3">Log New Incident</a> --}}
 
-        <table class="table">
+        <table class="table table-bordered">
             <thead>
                 <tr>
                     <th>ID</th>

@@ -110,14 +110,14 @@
                     </select>
                 </div>
 
-                <!-- Status field -->
+                {{-- <!-- Status field -->
                 <div class="form-group">
                     <label for="status">Status</label>
                     <select class="form-control" id="status" name="status" required>
                         <option value="active" {{ old('status', $driver->status) == 'active' ? 'selected' : '' }}>Active</option>
                         <option value="inactive" {{ old('status', $driver->status) == 'inactive' ? 'selected' : '' }}>Inactive</option>
                     </select>
-                </div>
+                </div> --}}
 
                 <!-- Submit button -->
                 <button type="submit" class="btn btn-primary">Update Driver</button>
